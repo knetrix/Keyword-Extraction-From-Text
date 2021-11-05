@@ -16,5 +16,9 @@ print(
     all_stopwords,
     lemma_list,
     pos_list,
-    sep="\n",
 )
+
+# todo sss
+#  param sss
+
+
