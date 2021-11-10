@@ -1,3 +1,4 @@
+from file_selection_process import TEXT, STATE
 from text_processing_eng import text_processing_eng
 
 
@@ -20,5 +21,6 @@ print(
 
 # todo sss
 #  param sss
+
 
 
