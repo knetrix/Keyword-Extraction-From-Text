@@ -1,5 +1,6 @@
-import numpy as np
 import math
+
+import numpy as np
 
 # wanted_words_in_text - islenmis_metin
 # unique_wanted_words_in_text - essiz_islenmis_metin
@@ -12,8 +13,8 @@ def textrank_and_rake(
     wanted_words_in_text,
     unique_wanted_words_in_text,
     all_stopwords,
-    lemma_list,
-    pos_list=0,
+    lemma_list: list,
+    pos_list: list,
 ):
     # stopwords_nihai Listesi: RAKE algoritmasında etkisiz kelimelere göre cümle olusturma isleminde kullanıldı. Cümle oluştururken metin_lemma listesinden yararlanıldı. metin_lemma listesi metindeki tüm kelimelerin lemmatization yapılmış halinin listesini tutar.
     # metin_token_pos Listesi: Tokenlar'a ayrılmış metnin eşli bir şekilde POS Tagging yapılmış hallerinin tutulduğu listedir.
@@ -112,7 +113,7 @@ def textrank_and_rake(
             "Word Value -> "
             + unique_wanted_words_in_text[i]
             + ": "
-            + str(word_value[i])
+            + str(round(word_value[i], 3))
         )
 
     # RAKE
@@ -138,12 +139,140 @@ def textrank_and_rake(
     print("List of Candidate Keyword Groups: \n")
     print(sentences)
 
-
     unique_sentences = []
     for sentence in sentences:
         if sentence not in unique_sentences:
             unique_sentences.append(sentence)
-    
+
     print()
     print("Unique List of Candidate Keyword Groups: \n")
     print(unique_sentences)
+
+    # pos_list - PosTag
+
+    unique_sentences_end = unique_sentences.copy()
+    sentence_word_count = 0
+    noun_count = 0
+    propn_count = 0
+    temp_var = 0
+
+    def split_sentence_and_delete(out):
+        nonlocal temp_var
+        for i in range(len(unique_sentences[out])):
+            unique_sentences_end.append(unique_sentences[out][i].split())
+
+        unique_sentences_end.pop(out - temp_var)
+        temp_var += 1
+
+    for i in range(len(unique_sentences)):
+        for j in range(len(unique_sentences[i])):
+            sentence_word_count += 1
+            index = lemma_list.index(unique_sentences[i][j])
+            word_tag = pos_list[index]
+
+            if word_tag == "NOUN":
+                noun_count += 1
+
+            elif word_tag == "PROPN":
+                propn_count += 1
+
+        if sentence_word_count > 1:
+            if sentence_word_count > 5:
+                split_sentence_and_delete(i)
+
+            elif noun_count >= 3:
+                split_sentence_and_delete(i)
+
+            elif (noun_count >= 1 or propn_count >= 1) and pos_list[
+                lemma_list.index(unique_sentences[i][-1])
+            ] == "ADJ":
+                split_sentence_and_delete(i)
+
+        sentence_word_count = 0
+        noun_count = 0
+        propn_count = 0
+
+    print()
+    print("Rules Applied to List of Candidate Keyword Groups: \n")
+    print(unique_sentences_end)
+
+    unique_sentences = []
+    for sentence in unique_sentences_end:
+        if sentence not in unique_sentences:
+            unique_sentences.append(sentence)
+
+    print()
+    print("Unique List of Candidate Keyword Groups: \n")
+    print(unique_sentences)
+
+    for word in unique_wanted_words_in_text:
+        for sentence in unique_sentences:
+            if (
+                (word in sentence)
+                and ([word] in unique_sentences)
+                and (len(sentence) > 1)
+            ):
+                unique_sentences.remove([word])
+
+    print()
+    print("Unique List of Candidate Keyword Groups (Single Word): \n")
+    print(unique_sentences)
+
+    sentences_value = []
+    keyword_sentences = []
+
+    for sentence in unique_sentences:
+        sentence_value = 0
+        keyword_sentence = ""
+        for word in sentence:
+            keyword_sentence += str(word)
+            keyword_sentence += " "
+            sentence_value += word_value[unique_wanted_words_in_text.index(word)]
+        sentences_value.append(sentence_value)
+        keyword_sentences.append(keyword_sentence.strip())
+
+    print()
+
+    i = 0
+    for sentence in keyword_sentences:
+        print(
+            "Keyword Group: '"
+            + str(sentence)
+            + "', Score : "
+            + str(round(sentences_value[i], 3))
+        )
+        i += 1
+
+    sorted_sentence = np.flip(np.argsort(sentences_value), 0)
+    
+    if 0 < len(keyword_sentences) <= 20: #0-20
+        keyword_sentences_limit = 4
+    elif len(keyword_sentences) <= 30:  # 
+        keyword_sentences_limit = 5
+    elif len(keyword_sentences) <= 40:  
+        keyword_sentences_limit = 6
+    elif len(keyword_sentences) <= 60: 
+        keyword_sentences_limit = 7
+    elif len(keyword_sentences) <= 70: 
+        keyword_sentences_limit = 8
+    elif len(keyword_sentences) <= 70: 
+        keyword_sentences_limit = 9
+    elif len(keyword_sentences) <= 80: 
+        keyword_sentences_limit = 10
+    else:
+        keyword_sentences_limit = 15
+
+    print()
+    print("Sorted Candidate keywords:\n")
+    
+    sorted_key_phrases = []
+
+    if keyword_sentences_limit <= len(keyword_sentences):
+        for i, j in zip(range(keyword_sentences_limit), range(keyword_sentences_limit)):
+            print(str(f'{j + 1} -> ' + keyword_sentences[sorted_sentence[i]]))
+            sorted_key_phrases.append(keyword_sentences[sorted_sentence[i]])  # sonuçları listeye atıyorum
+
+    return sorted_key_phrases
+
+print()
+

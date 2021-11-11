@@ -262,6 +262,7 @@ try:
 
 except SystemError as s:
     print(s)
+    sys.exit()
 except Exception as e:
     print("An error occurred while selecting a file! ", e)
     sys.exit()
