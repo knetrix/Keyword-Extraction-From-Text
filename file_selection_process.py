@@ -166,6 +166,8 @@ try:
     def file_select():
         global FILE_SELECT_NUMBER
         global RIGHT
+        global TEXT
+        TEXT = ""
 
         def number_and_dot(txtt):
             TEXT_M = ""
@@ -231,7 +233,6 @@ try:
 
                         line = number_and_dot(line)
 
-                    global TEXT
                     TEXT = TEXT + str(line.strip()) + " "
                 if TEXT == "":
                     message_box("File Content is Empty!")
