@@ -17,7 +17,7 @@ TEXT = ""
 try:
 
     class Ui_MainWindow(object):
-        durum = "Ing"  # default dil: İngilizce
+        durum = "Ing"
 
         def setupUi(self, MainWindow):
             MainWindow.setObjectName("MainWindow")
@@ -167,6 +167,29 @@ try:
         global FILE_SELECT_NUMBER
         global RIGHT
 
+        def number_and_dot(txtt):
+            TEXT_M = ""
+            tmp = 0
+            for letter in txtt:
+                if letter.isnumeric() == True:
+                    tmp += 1
+                    TEXT_M += letter
+                    continue
+
+                elif (letter == "." or letter == ",") and tmp > 0:
+                    TEXT_M += letter
+                    tmp = 0
+                    continue
+
+                elif (letter == "." or letter == ",") and tmp == 0:
+                    TEXT_M += " ."
+                else:
+
+                    TEXT_M += letter
+                    tmp = 0
+
+            return TEXT_M
+
         os.chdir(os.path.join(os.path.join(os.environ["USERPROFILE"]), "Desktop"))
         dir_desktop = os.getcwd()
         filters = "Text files (*.txt)"
@@ -195,13 +218,19 @@ try:
             RIGHT = right - 1
             file_select()
 
-        print("extension", extension)
         if extension != "txt" and extension != "":
             message_box("Incorrect Extension!")
 
         elif fileObj[1] != "":
             with open(fileObj[0], "r", encoding="utf-8") as file_txt:
                 for line in file_txt.readlines():
+                    if line != "\n":
+                        if line[-2] != ".":
+                            line = line[:-1]
+                            line += " .\n"
+
+                        line = number_and_dot(line)
+
                     global TEXT
                     TEXT = TEXT + str(line.strip()) + " "
                 if TEXT == "":
@@ -216,9 +245,9 @@ try:
             else:
                 message_box("Limit Crossed!")
 
-        TEXT = TEXT.replace(".", ". ")
+        # TEXT = number_and_dot(TEXT)
 
-        detect_language = detect(TEXT)  # metinin dili bulunuyor
+        detect_language = detect(TEXT)
 
         if (STATE == "Ing" or STATE == "") and detect_language == "tr":
             if RIGHT == 0:
@@ -270,6 +299,6 @@ else:
     print("\n\nFile Selection Successful! The Program Continues..\n")
 
     print()
-    print("Original Text:" + TEXT)
+    print("Original Text: \n" + TEXT)
     print()
     os.chdir(current_dir)

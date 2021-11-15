@@ -29,7 +29,11 @@ elif STATE == "Tur":
     (
         wanted_words_in_text,
         unique_wanted_words_in_text,
-        all_stopwords,
-        lemma_list,
-        pos_list,
+        _,
+        _,
+        _,
     ) = text_processing_tur(TEXT)
+
+    from textrank_algorithm import textrank
+
+    sorted_key_words = textrank(wanted_words_in_text, unique_wanted_words_in_text)
