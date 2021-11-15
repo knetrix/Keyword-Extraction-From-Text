@@ -108,17 +108,10 @@ def textrank_and_rake(
     # RAKE
 
     sentences = []
-    sentence_temp = []
 
     sentence = " "
 
     for word in lemma_list:
-
-        if len(word.split()) > 1:
-            sentence_temp.append(word)
-            sentences.append(sentence_temp)
-            sentence_temp = []
-            continue
 
         if word in all_stopwords:
             if sentence != " ":
