@@ -13,23 +13,30 @@ def text_processing_eng(text: str):
 
         text = "".join(list(filter(lambda x: x in printable, text)))
 
-        print("\nClear Text: " + text, end="\n\n")
+        print("\nClear Text: \n" + text, end="\n\n")
 
         token_dict = p.tokenize(text, is_sent=True)
-
-        # print(token_dict)
-        # print(token_dict.keys())
 
         token_list = [
             token.get("text", "An error occurred in the tokenizer.")
             for token in token_dict["tokens"]
         ]
 
-        print("Split text into tokens:", token_list, end="\n\n")
+        print("Split text into tokens: \n", token_list, end="\n\n")
 
         return token_list
 
-    token_list = clear_tokenizer_text(text)
+    # token_list = clear_tokenizer_text(text)
+    token_list = (
+        text.replace("'", "")
+        # .replace(".", " .")
+        .replace("?", " ?")
+        .replace("!", " !")
+        .replace("’", "")
+        .replace("´", "")
+        .split()
+    )
+    print("\nSplit text into tokens: \n", token_list, end="\n\n")
 
     def pos_text():
         pos_dict = p.posdep(token_list, is_sent=True)
@@ -41,7 +48,7 @@ def text_processing_eng(text: str):
 
         pos_token_list = list(zip(token_list, pos_list))
 
-        print("Finding POS of Tokens: ", pos_token_list, end="\n\n")
+        print("Finding POS of Tokens: \n", pos_token_list, end="\n\n")
 
         return pos_list
 
@@ -59,7 +66,7 @@ def text_processing_eng(text: str):
         lemma_token_pos_list = list(zip(token_list, lemma_list, pos_list))
 
         print(
-            "Lemmatization of tokens and POS information : ",
+            "Lemmatization of tokens and POS information: \n",
             lemma_token_pos_list,
             end="\n\n",
         )
@@ -97,12 +104,12 @@ def text_processing_eng(text: str):
                 unique_wanted_words_in_text.append(word)
 
         print(
-            "Word Type Filter Applied to Words in the Text and Removed Stopwords from the Text",
+            "Word Type Filter Applied to Words in the Text and Removed Stopwords from the Text: \n",
             wanted_words_in_text,
             end="\n\n",
         )
         print(
-            "Removed Duplicate Words from 'wanted_words_in_text' List",
+            "Removed Duplicate Words from 'wanted_words_in_text' List: \n",
             unique_wanted_words_in_text,
             end="\n\n",
         )
