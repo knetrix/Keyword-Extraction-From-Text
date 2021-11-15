@@ -1,6 +1,5 @@
 from file_selection_process import TEXT, STATE
 
-print(STATE)
 
 if STATE == "Ing" or STATE == "":
 
@@ -26,3 +25,11 @@ if STATE == "Ing" or STATE == "":
 
 elif STATE == "Tur":
     from text_processing_tur import text_processing_tur
+
+    (
+        wanted_words_in_text,
+        unique_wanted_words_in_text,
+        all_stopwords,
+        lemma_list,
+        pos_list,
+    ) = text_processing_tur(TEXT)
