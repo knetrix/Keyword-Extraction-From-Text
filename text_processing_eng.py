@@ -28,12 +28,12 @@ def text_processing_eng(text: str):
 
     # token_list = clear_tokenizer_text(text)
     token_list = (
-        text.replace("'", " '")
+        text.replace("'", "")
         # .replace(".", " .")
         .replace("?", " ?")
         .replace("!", " !")
-        .replace("’", " ’")
-        .replace("´", " ´")
+        .replace("’", "")
+        .replace("´", "")
         .split()
     )
     print("\nSplit text into tokens: \n", token_list, end="\n\n")

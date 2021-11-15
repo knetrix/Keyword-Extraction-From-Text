@@ -1,7 +1,7 @@
 
 Jeremy's -> pos = part? yanlış buluyor.
 Jeremy’s
-Michael's car şeklinde bulması lazım, ama ayırıyor.
+Michael's car şeklinde bulması lazım, ama ayırıyor. şimdilik ' gibi takıları metinden direk çıkardım.
 
 1.76. cümle böyle bitiyorsa sondaki noktayı ' .' olması lazım.
 
@@ -9,4 +9,3 @@ four, five, vb. stopword listesinde
 
 adp'leri ekleyebilirsin.
 
-2,000 - def number_and_dot()
