@@ -1,12 +1,4 @@
-import math
-
 import numpy as np
-
-# wanted_words_in_text - islenmis_metin
-# unique_wanted_words_in_text - essiz_islenmis_metin
-# all_stopwords - stopwords_nihai
-# lemma_list - metin_lemma
-# pos_list - metin_token_pos
 
 
 def textrank_and_rake(
@@ -16,8 +8,6 @@ def textrank_and_rake(
     lemma_list: list,
     pos_list: list,
 ):
-    # stopwords_nihai Listesi: RAKE algoritmasında etkisiz kelimelere göre cümle olusturma isleminde kullanıldı. Cümle oluştururken metin_lemma listesinden yararlanıldı. metin_lemma listesi metindeki tüm kelimelerin lemmatization yapılmış halinin listesini tutar.
-    # metin_token_pos Listesi: Tokenlar'a ayrılmış metnin eşli bir şekilde POS Tagging yapılmış hallerinin tutulduğu listedir.
 
     unique_wanted_words_in_text_size = len(unique_wanted_words_in_text)
 
@@ -86,7 +76,7 @@ def textrank_and_rake(
 
     iteration_info = 1
 
-    for iter in range(0, maximum_iteration):
+    for iteer in range(0, maximum_iteration):
         prev_word_value = np.copy(word_value)
 
         for i in range(0, unique_wanted_words_in_text_size):
@@ -102,12 +92,11 @@ def textrank_and_rake(
 
         if np.sum(np.fabs(prev_word_value - word_value)) <= threshold_value:
             print()
-            print(str(iteration_info) + "iteration's done.")
+            print(str(iteration_info) + " iteration's done.\n")
             break
 
         iteration_info += 1
 
-    print()
     for i in range(0, unique_wanted_words_in_text_size):
         print(
             "Word Value -> "
@@ -147,8 +136,6 @@ def textrank_and_rake(
     print()
     print("Unique List of Candidate Keyword Groups: \n")
     print(unique_sentences)
-
-    # pos_list - PosTag
 
     unique_sentences_end = unique_sentences.copy()
     sentence_word_count = 0
@@ -244,35 +231,46 @@ def textrank_and_rake(
         i += 1
 
     sorted_sentence = np.flip(np.argsort(sentences_value), 0)
-    
-    if 0 < len(keyword_sentences) <= 20: #0-20
-        keyword_sentences_limit = 4
-    elif len(keyword_sentences) <= 30:  # 
-        keyword_sentences_limit = 5
-    elif len(keyword_sentences) <= 40:  
-        keyword_sentences_limit = 6
-    elif len(keyword_sentences) <= 60: 
+
+    keyword_sentence_size = len(keyword_sentences)
+
+    if 0 < keyword_sentence_size <= 40:
         keyword_sentences_limit = 7
-    elif len(keyword_sentences) <= 70: 
+
+    elif keyword_sentence_size <= 50:
         keyword_sentences_limit = 8
-    elif len(keyword_sentences) <= 70: 
+
+    elif keyword_sentence_size <= 70:
         keyword_sentences_limit = 9
-    elif len(keyword_sentences) <= 80: 
+
+    elif keyword_sentence_size <= 80:
         keyword_sentences_limit = 10
+
+    elif keyword_sentence_size <= 90:
+        keyword_sentences_limit = 11
+
+    elif keyword_sentence_size <= 100:
+        keyword_sentences_limit = 12
+
     else:
         keyword_sentences_limit = 15
 
     print()
     print("Sorted Candidate keywords:\n")
-    
+
     sorted_key_phrases = []
 
-    if keyword_sentences_limit <= len(keyword_sentences):
+    if keyword_sentences_limit <= keyword_sentence_size:
         for i, j in zip(range(keyword_sentences_limit), range(keyword_sentences_limit)):
-            print(str(f'{j + 1} -> ' + keyword_sentences[sorted_sentence[i]]))
-            sorted_key_phrases.append(keyword_sentences[sorted_sentence[i]])  # sonuçları listeye atıyorum
+            print(str(f"{j + 1} -> " + keyword_sentences[sorted_sentence[i]]))
+            sorted_key_phrases.append(keyword_sentences[sorted_sentence[i]])
+
+    else:
+        for i, j in zip(range(keyword_sentence_size), range(keyword_sentence_size)):
+            print(str(f"{j + 1} -> " + keyword_sentences[sorted_sentence[i]]))
+            sorted_key_phrases.append(keyword_sentences[sorted_sentence[i]])
 
     return sorted_key_phrases
 
-print()
 
+print()
