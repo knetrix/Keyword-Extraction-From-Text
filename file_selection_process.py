@@ -1,9 +1,9 @@
 import os
 import sys
 
-from langdetect import detect
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
+from langdetect import detect
 
 current_dir = os.getcwd()
 
@@ -82,7 +82,7 @@ try:
             self.ExitButton.setStyleSheet(
                 "color: rgb(255, 181, 32);\n" "background-color: rgb(21, 56, 54);"
             )
-            self.ExitButton.setObjectName("CikButon")
+            self.ExitButton.setObjectName("ExitButton")
             self.ExitButton.clicked.connect(exit_program)
 
             self.radioButton_Ing = QtWidgets.QRadioButton(self.centralwidget)
@@ -238,15 +238,13 @@ try:
                     message_box("File Content is Empty!")
 
         else:
-            while 0 < RIGHT <= 2:
+            if 0 < RIGHT <= 2:
                 message_box_2(
                     "You are exiting without selecting a file! Please select a file..",
                     RIGHT,
                 )
             else:
                 message_box("Limit Crossed!")
-
-        # TEXT = number_and_dot(TEXT)
 
         detect_language = detect(TEXT)
 

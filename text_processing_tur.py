@@ -1,122 +1,104 @@
-""""""
-
 import string
+
 from trankit import Pipeline
 
 lower_map = {
-    ord(u"I"): u"ı",
-    ord(u"İ"): u"i",
+    ord("I"): "ı",
+    ord("İ"): "i",
 }
 
 
 def text_processing_tur(text: str):
     p = Pipeline("turkish")
 
-    def clear_tokenizer_text(text):
-        text = text.translate(lower_map)
-        text = text.lower()
+    # Clear and Tokenizer Text
 
-        print("\nClear Text: \n" + text, end="\n\n")
+    text = text.translate(lower_map)
+    text = text.lower()
 
-        token_dict = p.tokenize(text, is_sent=True)
+    print("\nClear Text: \n" + text, end="\n\n")
 
-        token_list = [
-            token.get("text", "An error occurred in the tokenizer.")
-            for token in token_dict["tokens"]
-        ]
+    token_dict = p.tokenize(text, is_sent=True)
 
-        print("Split text into tokens: \n", token_list, end="\n\n")
+    token_list = [
+        token.get("text", "An error occurred in the tokenizer.")
+        for token in token_dict["tokens"]
+    ]
 
-        return token_list
+    print("Split text into tokens: \n", token_list, end="\n\n")
 
-    token_list = clear_tokenizer_text(text)
+    # POS Text
+    pos_dict = p.posdep(token_list, is_sent=True)
 
-    def pos_text():
-        pos_dict = p.posdep(token_list, is_sent=True)
+    pos_list = [
+        token.get("upos", "An error occurred in the POS.")
+        for token in pos_dict["tokens"]
+    ]
 
-        pos_list = [
-            token.get("upos", "An error occurred in the POS.")
-            for token in pos_dict["tokens"]
-        ]
+    pos_token_list = list(zip(token_list, pos_list))
 
-        pos_token_list = list(zip(token_list, pos_list))
+    print("Finding POS of Tokens: \n", pos_token_list, end="\n\n")
 
-        print("Finding POS of Tokens: \n", pos_token_list, end="\n\n")
+    # Lemmatization Text
 
-        return pos_list
+    lemma_dict = p.lemmatize(token_list, is_sent=True)
 
-    pos_list = pos_text()
+    lemma_list = [
+        token.get("lemma", "An error occurred in the Lemmatization.")
+        for token in lemma_dict["tokens"]
+    ]
 
-    def lemma_text():
+    lemma_token_pos_list = list(zip(token_list, lemma_list, pos_list))
 
-        lemma_dict = p.lemmatize(token_list, is_sent=True)
+    print(
+        "Lemmatization of tokens and POS information: \n",
+        lemma_token_pos_list,
+        end="\n\n",
+    )
 
-        lemma_list = [
-            token.get("lemma", "An error occurred in the Lemmatization.")
-            for token in lemma_dict["tokens"]
-        ]
+    # Stopword Process
 
-        lemma_token_pos_list = list(zip(token_list, lemma_list, pos_list))
+    want_pos = ["NOUN", "ADJ", "PROPN"]
+    word_count = []
+    stopword_text = [
+        lemma_word
+        for lemma_word, word_pos in zip(lemma_list, pos_list)
+        if word_pos not in want_pos
+        if word_count.count(lemma_word) <= 1
+    ]
 
-        print(
-            "Lemmatization of tokens and POS information: \n",
-            lemma_token_pos_list,
-            end="\n\n",
-        )
+    stopword_punctuations = list(string.punctuation)
 
-        return lemma_list
+    file = open("stopword_list_tur.txt", "r", encoding="utf-8")
 
-    lemma_list = lemma_text()
+    stopwords_file = [line.strip() for line in file.readlines()]
 
-    def stopword():
+    all_stopwords = set(stopword_text + stopword_punctuations + stopwords_file)
 
-        want_pos = ["NOUN", "ADJ", "PROPN"]
-        word_count = []
-        stopword_text = [
-            lemma_word
-            for lemma_word, word_pos in zip(lemma_list, pos_list)
-            if word_pos not in want_pos
-            if word_count.count(lemma_word) <= 1
-        ]
+    wanted_words_in_text = [word for word in lemma_list if word not in all_stopwords]
 
-        stopword_punctuations = list(string.punctuation)
+    unique_wanted_words_in_text = []
+    for word in wanted_words_in_text:
+        if word not in unique_wanted_words_in_text:
+            unique_wanted_words_in_text.append(word)
 
-        file = open("stopword_list_tur.txt", "r", encoding="utf-8")
+    print(
+        "Word Type Filter Applied to Words in the Text and Removed Stopwords from the Text: \n",
+        "Processed Text:",
+        wanted_words_in_text,
+        end="\n\n",
+    )
+    print(
+        "Removed Duplicate Words from 'wanted_words_in_text' List: \n",
+        "Unique Processed Text:",
+        unique_wanted_words_in_text,
+        end="\n\n",
+    )
 
-        stopwords_file = [line.strip() for line in file.readlines()]
-
-        all_stopwords = set(stopword_text + stopword_punctuations + stopwords_file)
-
-        wanted_words_in_text = [
-            word for word in lemma_list if word not in all_stopwords
-        ]
-
-        unique_wanted_words_in_text = []
-        for word in wanted_words_in_text:
-            if word not in unique_wanted_words_in_text:
-                unique_wanted_words_in_text.append(word)
-
-        print(
-            "Word Type Filter Applied to Words in the Text and Removed Stopwords from the Text: \n",
-            "Processed Text:",
-            wanted_words_in_text,
-            end="\n\n",
-        )
-        print(
-            "Removed Duplicate Words from 'wanted_words_in_text' List: \n",
-            "Unique Processed Text:",
-            unique_wanted_words_in_text,
-            end="\n\n",
-        )
-
-        return (
-            wanted_words_in_text,
-            unique_wanted_words_in_text,
-            all_stopwords,
-            lemma_list,
-            pos_list,
-        )
-
-    return stopword()
-
-
+    return (
+        wanted_words_in_text,
+        unique_wanted_words_in_text,
+        all_stopwords,
+        lemma_list,
+        pos_list,
+    )

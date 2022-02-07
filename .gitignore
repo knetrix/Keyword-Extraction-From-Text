@@ -10,6 +10,7 @@ Pipfile
 Pipfile.lock
 .vscode
 cache
+.idea
 
 # Distribution / packaging
 .Python
