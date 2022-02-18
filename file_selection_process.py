@@ -26,7 +26,7 @@ try:
             MainWindow.setWindowFlag(QtCore.Qt.WindowMaximizeButtonHint, False)
             icon = QtGui.QIcon()
             icon.addPixmap(
-                QtGui.QPixmap(os.path.join(current_dir, "Images/anahtar-kelime.png")),
+                QtGui.QPixmap(os.path.join(current_dir, "Images/keyword.png")),
                 QtGui.QIcon.Normal,
                 QtGui.QIcon.Off,
             )

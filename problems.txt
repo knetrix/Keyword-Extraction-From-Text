@@ -5,3 +5,5 @@ four, five, vb. stopword listesinde.
 
 adp'leri ekleyebilirsin.
 
+show_results, database_processing ve veritabanı tablo ingilizceleştir.
+

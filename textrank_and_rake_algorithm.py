@@ -105,7 +105,7 @@ def textrank_and_rake(
             + str(round(word_value[i], 3))
         )
 
-    # RAKE
+    # RAKE Algorithm
 
     sentences = []
 

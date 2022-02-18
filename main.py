@@ -22,6 +22,10 @@ if STATE == "Ing" or STATE == "":
         pos_list,
     )
 
+    from show_results import Show_results
+
+    Show_results(TEXT, lemma_list, pos_list, sorted_key_phrases)
+
 
 elif STATE == "Tur":
     from text_processing_tur import text_processing_tur
@@ -30,10 +34,14 @@ elif STATE == "Tur":
         wanted_words_in_text,
         unique_wanted_words_in_text,
         _,
-        _,
-        _,
+        lemma_list,
+        pos_list,
     ) = text_processing_tur(TEXT)
 
     from textrank_algorithm import textrank
 
     sorted_key_words = textrank(wanted_words_in_text, unique_wanted_words_in_text)
+
+    from show_results import Show_results
+
+    Show_results(TEXT, lemma_list, pos_list, sorted_key_words)

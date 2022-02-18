@@ -11,6 +11,7 @@ Pipfile.lock
 .vscode
 cache
 .idea
+problems.txt
 
 # Distribution / packaging
 .Python
