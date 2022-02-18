@@ -1,6 +1,6 @@
 ## Keyword Extraction with TextRank and RAKE Algorithm
 
-#### Summary
+### Summary
 
 Keywords greatly facilitate our understanding of the topic matter in the document content. Inferences can be made about the document without having to read the entire content of the document. Keywords can be used in many places such as search engine optimization (SEO), comment and social media analysis, finding the topic of the document and then classifying the document according to the topic.
 
@@ -13,7 +13,7 @@ The study supports English and Turkish documents. TextRank and RAKE algorithm ar
 Interface has been developed in order to visualize the processes in the study. When the document file is given in the required format after the language selection is made through the interface, the keywords found are displayed on the interface in order. In addition, the results can be saved to the database through the interface and the database can be viewed via a web browser by clicking the necessary button on the interface.
 
 
-#### Usage
+### Usage
 
 Project need **Python 3.8.0** or Greater
 
@@ -28,7 +28,7 @@ Project need **Python 3.8.0** or Greater
 
 **Note:** When the program is first run, it will download around 1.2 GB. This is a one-time operation.
 
-#### Sample Results
+### Samples
 
 Text:
 
