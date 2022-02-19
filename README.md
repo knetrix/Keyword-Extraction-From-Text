@@ -19,16 +19,16 @@ Project need **Python 3.8.0** or Greater
 
 1. Clone This Repo
 2. Open CMD in the clone folder.
-3. If pipenv doesn't exist, you need to install it (Command: pip install pipenv).
-4. python -m pipenv install --python 3.8.0
-5. pipenv shell
-6. python main.py
+3. If pipenv doesn't exist, you need to install it (Command: ```pip install pipenv```).
+4. ```python -m pipenv install --python 3.8.0```
+5. ```pipenv shell```
+6. ```python main.py```
 7. Enjoy :)
 
 
 **Note:** When the program is first run, it will download around 1.2 GB. This is a one-time operation.
 
-### Samples
+### Sample Texts and Keywords
 
 Text:
 
