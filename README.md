@@ -24,7 +24,7 @@ Python **Python 3.8.0** veya üstü gerekiyor.
 6. ```python main.py```
 7. Eğlence :)
 
-**Note:** Program ilk çalıştırıldığında yaklaşık 1,2 GB indirecektir. Bu tek seferlik bir işlemdir.
+**Not:** Program ilk çalıştırıldığında yaklaşık 1,2 GB indirecektir. Bu tek seferlik bir işlemdir.
 
 ### Örnek Metinler ve Anahtar Kelimeler
 
