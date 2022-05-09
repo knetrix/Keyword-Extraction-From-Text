@@ -22,7 +22,6 @@ Python **Python 3.8.0** veya üstü gerekiyor.
 4. ```python -m pipenv install--python 3.8.0``` (Başka bir Python sürümü kullanıyorsanız buraya onu yazın)
 5. ```pipenv shell```
 6. ```python main.py```
-7. Eğlence :)
 
 **Not:** Program ilk çalıştırıldığında yaklaşık 1,2 GB indirecektir. Bu tek seferlik bir işlemdir.
 
@@ -73,4 +72,4 @@ Aanahtar Kelimeler
 7. computer
 
 
-[Daha Fazla Bilgi için Blog Sayfama Bakabilirsiniz.](#)
+[Daha Fazla Bilgi için Blog Sayfama Bakabilirsiniz.](https://www.networkous.com/2022/05/textrank-rake-algoritmasi-metinden-anahtar-kelime-cikarma.html)
