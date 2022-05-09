@@ -61,7 +61,7 @@ Anahtar Kelimeler
 
 A Black Hawk is a helicopter. Soldiers use it. Last week, the helicopter flies without pilots. It happens at Fort Campbell, US. There are two flights. One flight is 30 minutes long. The helicopter flies through a city. It is not a real city. A computer makes it. Then, the helicopter lands. The helicopter uses special technology. The technology makes it possible to fly without a pilot. A computer controls it. The technology is very good for pilots. The helicopter can fly at night. It can fly when the weather is bad. Pilots can do other things.
 
-Aanahtar Kelimeler
+Anahtar Kelimeler
 
 1. helicopter
 2. pilot
