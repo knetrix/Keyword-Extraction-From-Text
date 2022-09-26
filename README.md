@@ -14,16 +14,16 @@ Anahtar kelimeler, doküman içeriğindeki konuyu anlamamızı büyük ölçüde
 
 
 ### Kullanım
-Python **Python 3.8.0** veya üstü gerekiyor.
+Python **Python 3.8.0** veya Üstü Gerekiyor.
 
-1. Repoyu ```git clone``` komutunu kullanarak indirin.
-2. İndirdiğiniz proje klasöründe CLI açın.
-3. pipenv yoksa, onu yüklemeniz gerekir (Komut: ```pip install pipenv```).
-4. ```python -m pipenv install--python 3.8.0``` (Başka bir Python sürümü kullanıyorsanız buraya onu yazın)
+1. Repoyu ```git clone``` Komutunu Kullanarak İndirin.
+2. İndirdiğiniz Proje Klasöründe CLI Açın.
+3. Pipenv Yoksa Onu Yüklemeniz Gerekir (Komut: ```pip install pipenv```).
+4. ```python -m pipenv install --python 3.8.0``` (Başka Bir Python Sürümü Kullanıyorsanız Buraya Onu Yazın)
 5. ```pipenv shell```
 6. ```python main.py```
 
-**Not:** Program ilk çalıştırıldığında yaklaşık 1,2 GB indirecektir. Bu tek seferlik bir işlemdir.
+**Not:** Program İlk Çalıştırıldığında Yaklaşık 1,2 GB İndirecektir. Bu Tek Seferlik Bir İşlemdir.
 
 ### Örnek Metinler ve Anahtar Kelimeler
 
