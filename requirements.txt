@@ -23,7 +23,7 @@ langid==1.1.6
 markupsafe==2.1.0; python_version >= '3.7'
 numpy==1.22.2
 packaging==21.3; python_version >= '3.6'
-protobuf==3.19.4; python_version >= '3.5'
+protobuf==3.19.5; python_version >= '3.5'
 pyparsing==3.0.7; python_version >= '3.6'
 pyqt5-plugins==5.15.4.2.2; python_version >= '3.5'
 pyqt5-qt5==5.15.2
