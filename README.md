@@ -70,6 +70,3 @@ Anahtar Kelimeler
 5. Fort Campbell
 6. Black Hawk
 7. computer
-
-
-[Daha Fazla Bilgi için Blog Sayfama Bakabilirsiniz.](https://www.networkous.com/2022/05/textrank-rake-algoritmasi-metinden-anahtar-kelime-cikarma.html)
