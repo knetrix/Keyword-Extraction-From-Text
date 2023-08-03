@@ -68,6 +68,8 @@ Keywords
 6. Black Hawk
 7. computer
 
+Don't Forget Starring If You Like The Project :blush:
+
 ---
 
 # Turkish
@@ -148,3 +150,5 @@ Anahtar Kelimeler
 5. Fort Campbell
 6. Black Hawk
 7. computer
+
+Projeyi Beğendiyseniz Yıldızlamayı Unutmayın :blush:
