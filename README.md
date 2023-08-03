@@ -1,3 +1,4 @@
+# Keyword Extraction Project from Texts with Textrank and RAKE Algorithm / Textrank ve RAKE Algoritması ile Metinlerden Anahtar Kelime Çıkarma Projesi
 # English
 ## Keyword Extraction Project from Texts with Textrank and RAKE Algorithm
 
