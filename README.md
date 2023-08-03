@@ -73,6 +73,9 @@ Keywords
 # Turkish
 ## Textrank ve RAKE Algoritması ile Metinlerden Anahtar Kelime Çıkarma Projesi
 
+![gui-tr](/gui-tr.jpg)
+![gui-result-tr](/gui-result-tr.jpg)
+
 ### Özet
 
 Anahtar kelimeler, doküman içeriğindeki konuyu anlamamızı büyük ölçüde kolaylaştırır. Doküman içeriğinin tamamını okumaya gerek kalmadan doküman hakkında çıkarımlar yapılabilir. Anahtar kelimeler; arama motoru optimizasyonu (SEO) işlemlerinde, yorum ve sosyal medya analizlerinde, dokümanın konusunun bulunması ve daha sonra konuya göre doküman sınıflandırma işlemleri gibi birçok yerde kullanılabilir.
