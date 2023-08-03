@@ -72,8 +72,13 @@ Keywords
 
 # Turkish
 ## Textrank ve RAKE Algoritması ile Metinlerden Anahtar Kelime Çıkarma Projesi
+<p align="center">
+    <img src="/gui-tr.jpg">
+</p>
 
-![gui-tr](/gui-tr.jpg) ![gui-result-tr](/gui-result-tr.jpg)
+<p align="center">
+    <img src="/gui-result-tr.jpg">
+</p>
 
 ### Özet
 
