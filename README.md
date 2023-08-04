@@ -68,7 +68,7 @@ Keywords
 6. Black Hawk
 7. computer
 
-Don't Forget Starring If You Like The Project :blush:
+If you like the project, don't forget to give star :blush:
 
 ---
 
@@ -151,4 +151,4 @@ Anahtar Kelimeler
 6. Black Hawk
 7. computer
 
-Projeyi Beğendiyseniz Yıldızlamayı Unutmayın :blush:
+Projeyi beğendiyseniz yıldız vermeyi unutmayın. :blush:
