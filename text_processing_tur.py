@@ -9,7 +9,7 @@ lower_map = {
 
 
 def text_processing_tur(text: str):
-    p = Pipeline("turkish")
+    p = Pipeline("turkish", embedding='xlm-roberta-large')
 
     # Clear and Tokenizer Text
 
