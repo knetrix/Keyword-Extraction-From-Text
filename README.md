@@ -25,7 +25,7 @@ Interface has been developed in order to visualize the processes in the study. W
 
 
 ### Usage
-Python **Python 3.8.0** or higher version required.
+Python **Python 3.8.0** or **3.9.6** version required (This Has Been Tried in Two Versions. For example, it does not work in Python 3.10 Version).
 
 1. Download this repo using ``git clone`` command.
 2. Open the **CLI** in the project folder you downloaded.
@@ -101,7 +101,7 @@ Anahtar kelimeler, doküman içeriğindeki konuyu anlamamızı büyük ölçüde
 
 
 ### Kullanım
-Python **Python 3.8.0** veya Üstü Gerekiyor.
+Python **Python 3.8.0** veya **3.9.6** Gerekiyor (Bu İki Versiyonda Denenmiştir. Örnek Olarak Python 3.10 Versiyonunda Çalışmıyor).
 
 1. Repoyu ```git clone``` Komutunu Kullanarak İndirin.
 2. İndirdiğiniz Proje Klasöründe CLI Açın.
