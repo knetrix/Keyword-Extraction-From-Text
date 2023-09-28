@@ -4,7 +4,7 @@ from trankit import Pipeline
 
 
 def text_processing_eng(text: str):
-    p = Pipeline("english")
+    p = Pipeline("english", embedding='xlm-roberta-large')
 
     token_list = []
 
