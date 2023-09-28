@@ -1,3 +1,15 @@
+<p align="center">
+    <img src="/gui.jpg">
+</p>
+
+<p align="center">
+    <img src="/gui-result.jpg">
+</p>
+
+<p align="center">
+    <img src="/database.jpg">
+</p>
+
 # English
 ## Keyword Extraction Project from Texts with Textrank and RAKE Algorithm
 
@@ -74,13 +86,6 @@ If you like the project, don't forget to give star :blush:
 
 # Turkish
 ## Textrank ve RAKE Algoritması ile Metinlerden Anahtar Kelime Çıkarma Projesi
-<p align="center">
-    <img src="/gui-tr.jpg">
-</p>
-
-<p align="center">
-    <img src="/gui-result-tr.jpg">
-</p>
 
 ### Özet
 
