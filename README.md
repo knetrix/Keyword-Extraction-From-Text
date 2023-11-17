@@ -10,6 +10,26 @@
     <img src="/database.jpg">
 </p>
 
+# Table of Contents
+
+- [English](#english)
+  * [Keyword Extraction Project from Texts with Textrank and RAKE Algorithm](#keyword-extraction-project-from-texts-with-textrank-and-rake-algorithm)
+    + [Usage](#usage)
+    + [Sample Texts and Keywords](#sample-texts-and-keywords)
+      - [Text 1](#text-1)
+      - [Text 2](#text-2)
+      - [Text 3](#text-3)
+    + [Problems](#problems)
+    + [Changes I Want to Make](#changes-i-want-to-make)
+- [Turkish](#turkish)
+  * [Textrank ve RAKE Algoritması ile Metinlerden Anahtar Kelime Çıkarma Projesi](#textrank-ve-rake-algoritması-ile-metinlerden-anahtar-kelime-çıkarma-projesi)
+    + [Özet](#özet)
+    + [Kullanım](#kullanım)
+    + [Örnek Metinler ve Anahtar Kelimeler](#örnek-metinler-ve-anahtar-kelimeler)
+      - [Metin 1](#metin-1)
+      - [Metin 2](#metin-2)
+      - [Metin 3](#metin-3)
+
 # English
 ## Keyword Extraction Project from Texts with Textrank and RAKE Algorithm
 
@@ -79,6 +99,17 @@ Keywords
 5. Fort Campbell
 6. Black Hawk
 7. computer
+
+### Problems
+- The POS Type of Words with the 's Suffix is Found Wrong. Examples:
+    - Jeremy's -> POS: PART -> Wrong.
+    - Michael's Car -> It is found as Michael Car, it should be Michael's Car.
+    - For now, I removed phrases like ' directly from the text.
+
+
+### Changes I Want to Make
+- A Different NLP Library Can Be Used for NLP Procedures in English and More Research Can Be Done to Improve NLP Procedures.
+- In Turkish, Python VNlP Library should be switched to.
 
 If you like the project, don't forget to give star :blush:
 
@@ -156,4 +187,3 @@ Anahtar Kelimeler
 6. Black Hawk
 7. computer
 
-Projeyi beğendiyseniz yıldız vermeyi unutmayın. :blush:
