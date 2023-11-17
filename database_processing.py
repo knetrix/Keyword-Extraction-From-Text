@@ -1,133 +1,122 @@
-from flask import Flask, render_template, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
-from werkzeug.exceptions import InternalServerError
 import sqlite3
-import webbrowser
-import threading
-from PyQt5.QtWidgets import QMessageBox
 import sys
+import threading
+import webbrowser
 
-sys.tracebacklimit = 0  # traceback görüntülenmemesi için
+from flask import Flask, redirect, render_template, url_for
+from flask_sqlalchemy import SQLAlchemy
+from PyQt5.QtWidgets import QMessageBox
+from werkzeug.exceptions import InternalServerError
 
-vt = sqlite3.connect("veritabani.db")
-im = vt.cursor()
-im.execute("""SELECT * FROM metin__anahtar__tablo""")
-veriler = (
-    im.fetchall()
-)  # tablodaki verileri fetchall fonksiyonu ile veriler değişkenine alıyorum
-
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///veritabani.db"
+app = Flask("database")
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 
-class Metin_Anahtar_Tablo(db.Model):
+class text_keyword_table(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    Metin = db.Column(db.String, unique=True, nullable=False)
-    Lemma_metin = db.Column(db.String, unique=True, nullable=False)
-    Metin_pos = db.Column(db.String, unique=True, nullable=False)
-    Anahtar = db.Column(db.String, unique=True, nullable=False)
+    text = db.Column(db.String, unique=True, nullable=False)
+    text_lemma = db.Column(db.String, unique=True, nullable=False)
+    text_pos = db.Column(db.String, unique=True, nullable=False)
+    keyword = db.Column(db.String, unique=True, nullable=False)
 
 
 db.create_all()
 
-gelen_metin = ""
-gelen_metin_lemma_str = ""
-gelen_metin_lemma_pos_str = ""
-gelen_siralanmis_anahtar_kelimeler_str = ""
+sys.tracebacklimit = 0  # traceback görüntülenmemesi için
+database_connection = sqlite3.connect("database.db")
+cursor = database_connection.cursor()
+cursor.execute("""SELECT * FROM text_keyword_table""")
+database_datas = cursor.fetchall()
+
+new_data_list = []
 
 
-def degiskenleri_al(metin, metin_lemma, metin_token_pos, siralanmis_anahtar_kelimeler):
-    global gelen_metin
-    gelen_metin = metin
+def new_data_preprocessing(
+    new_data,
+):  # new_data: Tuple: TEXT, lemma_list, pos_list, sorted_key_words_or_phrases
+    new_data_list.append(new_data[0])
 
-    global gelen_metin_lemma_str
-    global gelen_metin_lemma_pos_str
-    global gelen_siralanmis_anahtar_kelimeler_str
+    new_data_list.append(" ".join(new_data[1]))
 
-    gelen_metin_lemma_str = " ".join(
-        metin_lemma
-    )  # metin_lemma listesini boşluğa göre listedeki kelimeleri birleştirip str elde ediyorum.
+    # Lemma Word + POS Type Word = lemma_pos_text (String)
+    lemma_pos_text = ""
+    for i, y in zip(new_data[1], new_data[2]):
+        lemma_pos_text = lemma_pos_text + str("(" + i + " - " + y + ")") + ", "
+    new_data_list.append(lemma_pos_text)
 
-    for i, y in zip(metin_lemma, metin_token_pos):
-        gelen_metin_lemma_pos_str = (
-            gelen_metin_lemma_pos_str + str("(" + i + " - " + y + ")") + ", "
+    # sorted_key_words_or_phrases convert to String and Different Format: sorted_key_words_or_phrases_str
+    sorted_key_words_or_phrases_str=""
+    for i, y in zip(new_data[3], range(len(new_data[3]))):
+        sorted_key_words_or_phrases_str = (
+            sorted_key_words_or_phrases_str + str(y + 1) + " - " + str(i) + ", "
         )
-
-    for i, y in zip(
-        siralanmis_anahtar_kelimeler, range(len(siralanmis_anahtar_kelimeler))
-    ):
-        gelen_siralanmis_anahtar_kelimeler_str = (
-            gelen_siralanmis_anahtar_kelimeler_str + str(y + 1) + " - " + str(i) + ", "
-        )
+    new_data_list.append(sorted_key_words_or_phrases_str)
 
 
-def veritabani_kayit_ekle():
-    for i in range(
-        len(veriler)
-    ):  # Tabloda aynı kayıt var mı, yok mu kontrolü. for/else yapısı
+def database_add_record():
+    for i, database_data in enumerate(
+        (database_datas)
+    ):  # Check if there is the same record in the table or not. for/else structure.
         if (
-            veriler[i][1] == gelen_metin
-            or veriler[i][2] == gelen_metin_lemma_str
-            or veriler[i][3] == gelen_metin_lemma_pos_str
-            or veriler[i][4] == gelen_siralanmis_anahtar_kelimeler_str
+            database_data[1] == new_data_list[0]
+            or database_data[2] == new_data_list[1]
+            or database_data[3] == new_data_list[2]
+            or database_data[4] == new_data_list[3]
         ):
-            vrtbni_ekle_hata = QMessageBox()
-            vrtbni_ekle_hata.setIcon(QMessageBox.Critical)
-            vrtbni_ekle_hata.setText("The same record exists in the database!")
-            vrtbni_ekle_hata.setWindowTitle("Warning")
-            vrtbni_ekle_hata.exec_()
+            database_add_error = QMessageBox()
+            database_add_error.setIcon(QMessageBox.Critical)
+            database_add_error.setText("The same record exists in the database!")
+            database_add_error.setWindowTitle("Warning")
+            database_add_error.exec_()
             break
     else:
-        a = Metin_Anahtar_Tablo(
-            Metin=gelen_metin,
-            Lemma_metin=gelen_metin_lemma_str,
-            Metin_pos=gelen_metin_lemma_pos_str,
-            Anahtar=gelen_siralanmis_anahtar_kelimeler_str,
+        cursor.execute(
+            """INSERT INTO text_keyword_table (text,text_lemma,text_pos, keyword) VALUES
+                (?, ?, ?, ?)""",
+            new_data_list,
         )
-        db.session.add(a)
-        db.session.commit()
-        vrtbni_ekle = QMessageBox()
-        vrtbni_ekle.setIcon(QMessageBox.Information)
-        vrtbni_ekle.setText("Added Record to Database")
-        vrtbni_ekle.setWindowTitle("Process Completed")
-        vrtbni_ekle.exec_()
+        database_connection.commit()
+
+        database_add = QMessageBox()
+        database_add.setIcon(QMessageBox.Information)
+        database_add.setText("Added Record to Database")
+        database_add.setWindowTitle("Process Completed")
+        database_add.exec_()
 
 
 @app.route("/")
-def Veritabani_Goruntule():
-    Veritabani_Goruntule = Metin_Anahtar_Tablo.query.paginate()
-    return render_template(
-        "veritabani_sayfasi.html", Veritabani_Goruntule=Veritabani_Goruntule
-    )
+def view_database():
+    view_database = text_keyword_table.query.paginate()
+    return render_template("database_page.html", view_database=view_database)
 
 
 app.secret_key = "super secret key"
 
 
 @app.route("/delete/<int:id>", methods=["POST", "GET"])
-def Veritabani_SatirSil(id):
+def Database_DeleteRow(id):
     try:
-        veri = Metin_Anahtar_Tablo.query.get(id)
-        db.session.delete(veri)
+        data = text_keyword_table.query.get(id)
+        db.session.delete(data)
         db.session.commit()
-        return redirect(url_for("Veritabani_Goruntule"))
+        return redirect(url_for("view_database"))
     except Exception as e:
         print("Hata: " + str(e))
 
 
 @app.errorhandler(InternalServerError)
 def handle_500(e):
-    original = getattr(e, "Hata", None)
-    return render_template("hata_sayfasi.html", e=original)
+    original = getattr(e, "Error", None)
+    return render_template("error_page.html", e=original)
 
 
-def calistir():
+def run():
     webbrowser.open_new_tab("http://127.0.0.1:5000/")
     app.run(debug=False)
 
 
-def calistir_threading():
-    t1 = threading.Thread(target=calistir)
+def run_threading():
+    t1 = threading.Thread(target=run)
     t1.start()

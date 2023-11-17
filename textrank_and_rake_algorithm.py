@@ -8,7 +8,6 @@ def textrank_and_rake(
     lemma_list: list,
     pos_list: list,
 ):
-
     unique_wanted_words_in_text_size = len(unique_wanted_words_in_text)
 
     connection_matrix = np.zeros(
@@ -36,7 +35,6 @@ def textrank_and_rake(
                     if (unique_wanted_words_in_text[i] in window) and (
                         unique_wanted_words_in_text[j] in window
                     ):
-
                         index_i = window_start + window.index(
                             unique_wanted_words_in_text[i]
                         )
@@ -45,7 +43,6 @@ def textrank_and_rake(
                         )
 
                         if [index_i, index_j] not in is_index_available:
-
                             connection_matrix[i][j] = connection_matrix[i][j] + 1 / abs(
                                 index_i - index_j
                             )
@@ -76,11 +73,10 @@ def textrank_and_rake(
 
     iteration_info = 1
 
-    for iteer in range(0, maximum_iteration):
+    for iter in range(0, maximum_iteration):
         prev_word_value = np.copy(word_value)
 
         for i in range(0, unique_wanted_words_in_text_size):
-
             total = 0
             for j in range(0, unique_wanted_words_in_text_size):
                 if connection_matrix[i][j] != 0:
@@ -112,7 +108,6 @@ def textrank_and_rake(
     sentence = " "
 
     for word in lemma_list:
-
         if word in all_stopwords:
             if sentence != " ":
                 sentences.append(str(sentence).strip().split())
@@ -151,10 +146,10 @@ def textrank_and_rake(
         unique_sentences_end.pop(out - temp_var)
         temp_var += 1
 
-    for i in range(len(unique_sentences)):
-        for j in range(len(unique_sentences[i])):
+    for i, unique_sentence in enumerate(unique_sentences):
+        for j, word in enumerate(unique_sentence):
             sentence_word_count += 1
-            index = lemma_list.index(unique_sentences[i][j])
+            index = lemma_list.index(word)
             word_tag = pos_list[index]
 
             if word_tag == "NOUN":
@@ -163,17 +158,16 @@ def textrank_and_rake(
             elif word_tag == "PROPN":
                 propn_count += 1
 
-        if sentence_word_count > 1:
-            if sentence_word_count > 5:
-                split_sentence_and_delete(i)
-
-            elif noun_count >= 3:
-                split_sentence_and_delete(i)
-
-            elif (noun_count >= 1 or propn_count >= 1) and pos_list[
-                lemma_list.index(unique_sentences[i][-1])
-            ] == "ADJ":
-                split_sentence_and_delete(i)
+        if (
+            sentence_word_count > 1
+            and sentence_word_count > 4
+            or noun_count >= 3
+            or (
+                (noun_count >= 1 or propn_count >= 1)
+                and pos_list[lemma_list.index(unique_sentence[-1])] == "ADJ"
+            )
+        ):
+            split_sentence_and_delete(i)
 
         sentence_word_count = 0
         noun_count = 0
@@ -193,7 +187,7 @@ def textrank_and_rake(
     print(unique_sentences)
 
     for word in unique_wanted_words_in_text:
-        for sentence in unique_sentences:
+        for sentence in list(unique_sentences):
             if (
                 (word in sentence)
                 and ([word] in unique_sentences)
@@ -235,22 +229,22 @@ def textrank_and_rake(
     keyword_sentence_size = len(keyword_sentences)
 
     if 0 < keyword_sentence_size <= 40:
-        keyword_sentences_limit = 7
+        keyword_sentences_limit = 6
 
     elif keyword_sentence_size <= 50:
-        keyword_sentences_limit = 8
+        keyword_sentences_limit = 7
 
     elif keyword_sentence_size <= 70:
-        keyword_sentences_limit = 9
+        keyword_sentences_limit = 8
 
     elif keyword_sentence_size <= 80:
-        keyword_sentences_limit = 10
+        keyword_sentences_limit = 9
 
     elif keyword_sentence_size <= 90:
-        keyword_sentences_limit = 11
+        keyword_sentences_limit = 10
 
     elif keyword_sentence_size <= 100:
-        keyword_sentences_limit = 12
+        keyword_sentences_limit = 11
 
     else:
         keyword_sentences_limit = 15

@@ -1,8 +1,6 @@
-from file_selection_process import TEXT, STATE
-
+from file_selection_process import STATE, TEXT
 
 if STATE == "Ing" or STATE == "":
-
     from text_processing_eng import text_processing_eng
 
     (
@@ -22,9 +20,9 @@ if STATE == "Ing" or STATE == "":
         pos_list,
     )
 
-    from show_results import Show_results
+    from show_results import show_results
 
-    Show_results(TEXT, lemma_list, pos_list, sorted_key_phrases)
+    show_results(TEXT, lemma_list, pos_list, sorted_key_phrases)
 
 
 elif STATE == "Tur":
@@ -42,6 +40,6 @@ elif STATE == "Tur":
 
     sorted_key_words = textrank(wanted_words_in_text, unique_wanted_words_in_text)
 
-    from show_results import Show_results
+    from show_results import show_results
 
-    Show_results(TEXT, lemma_list, pos_list, sorted_key_words)
+    show_results(TEXT, lemma_list, pos_list, sorted_key_words)

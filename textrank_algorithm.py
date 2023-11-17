@@ -73,7 +73,7 @@ def textrank(
 
     iteration_info = 1
 
-    for iteer in range(0, maximum_iteration):
+    for iter in range(0, maximum_iteration):
         prev_word_value = np.copy(word_value)
 
         for i in range(0, unique_wanted_words_in_text_size):

@@ -25,15 +25,15 @@
             </tr>
         </thead>
         <tbody>
-            {% for Veritabani_Goruntule in Veritabani_Goruntule.items %}
+            {% for view_database in view_database.items %}
             <tr>
-                <td class="text-left" width="1px">{{ Veritabani_Goruntule.id}}</td>
-                <td class="text-left" width="400px">{{ Veritabani_Goruntule.Metin}}</td>
-                <td class="text-left" width="400px">{{ Veritabani_Goruntule.Lemma_metin}}</td>
-                <td class="text-left">{{ Veritabani_Goruntule.Metin_pos}}</td>
-                <td class="text-left" width="150px">{{ Veritabani_Goruntule.Anahtar}}</td>
+                <td class="text-left" width="1px">{{ view_database.id}}</td>
+                <td class="text-left" width="400px">{{ view_database.text}}</td>
+                <td class="text-left" width="400px">{{ view_database.text_lemma}}</td>
+                <td class="text-left">{{ view_database.text_pos}}</td>
+                <td class="text-left" width="150px">{{ view_database.keyword}}</td>
                 <td class="text-left" width="10px">
-                    <a href="/delete/{{Veritabani_Goruntule.id}}" class="btn btn-danger btn-delete btn-sm" onclick="myFunction()">delete</a>
+                    <a href="/delete/{{view_database.id}}" class="btn btn-danger btn-delete btn-sm" onclick="myFunction()">delete</a>
                 </td>
             </tr>
             {% endfor %}
